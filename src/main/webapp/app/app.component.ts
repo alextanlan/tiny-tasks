@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { switchMap } from "rxjs/operators";
 
 import { Task } from './tasks/task';
 import { TaskService } from './tasks/task.service';
@@ -30,7 +31,17 @@ export class AppComponent implements OnInit {
   }
 
   searchByQuery(query: string): void {
-    this.tasks$ = this.taskService.getByQuery(query);
+    if (query) {
+      this.receiveTasksByQuery(query);
+    } else {
+      this.refreshTasks();
+    }
+  }
+
+  private receiveTasksByQuery(query: string): void {
+    this.tasks$ = of(null).pipe(
+      switchMap(_ => this.taskService.getByQuery(query))
+    );
   }
 
   private refreshTasks(): void {
