@@ -15,7 +15,7 @@ export class LocalTaskService implements TaskService {
   }
 
   getByQuery(query: string): Observable<Task[]> {
-    const res = this.readTasks().filter(task => task.name.includes(query));
+    const res = this.readTasks().filter(task => task.name && task.name.includes(query));
     return of(res);
   }
 
