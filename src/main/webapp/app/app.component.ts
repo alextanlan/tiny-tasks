@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { switchMap } from "rxjs/operators";
+import { Observable, of, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 import { Task } from './tasks/task';
 import { TaskService } from './tasks/task.service';
@@ -13,8 +13,8 @@ import { TASK_SERVICE_TOKEN } from 'app/app.tokens';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-
   tasks$: Observable<Task[]>;
+  resetSearch$ = new Subject<void>();
 
   constructor(@Inject(TASK_SERVICE_TOKEN) private taskService: TaskService) { }
 
@@ -45,6 +45,7 @@ export class AppComponent implements OnInit {
   }
 
   private refreshTasks(): void {
+    this.resetSearch$.next();
     this.tasks$ = this.taskService.getAll();
   }
 }

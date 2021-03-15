@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'tiny-search-tasks',
@@ -9,6 +10,12 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchTasksComponent implements OnInit {
+  @Input() set reset$(reset$: Subject<void>) {
+    reset$.subscribe(_ => {
+      this.resetSearch();
+    })
+  }
+
   @Output() emitted = new EventEmitter<string>();
   searchControl: FormControl;
 
@@ -20,5 +27,9 @@ export class SearchTasksComponent implements OnInit {
       distinctUntilChanged(),
       tap(value => this.emitted.emit(value))
     ).subscribe();
+  }
+
+  resetSearch() {
+    this.searchControl.reset();
   }
 }
