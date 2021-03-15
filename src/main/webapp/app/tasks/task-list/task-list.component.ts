@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, Output
 
 import { Task } from '../task';
 import { TaskService } from '../task.service';
+import { TASK_SERVICE_TOKEN } from 'app/app.tokens';
 
 /**
  * A list of tiny tasks.
@@ -18,7 +19,7 @@ export class TaskListComponent {
 
   @Output() deleted: EventEmitter<Task> = new EventEmitter();
 
-  constructor(@Inject('TaskService') private taskService: TaskService) { }
+  constructor(@Inject(TASK_SERVICE_TOKEN) private taskService: TaskService) { }
 
   delete(task: Task): void {
     this.taskService.delete(task.id).subscribe(() => {

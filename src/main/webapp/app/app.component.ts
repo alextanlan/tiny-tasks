@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { Task } from './tasks/task';
 import { TaskService } from './tasks/task.service';
+import { TASK_SERVICE_TOKEN } from 'app/app.tokens';
 
 @Component({
   selector: 'tiny-root',
@@ -14,17 +15,21 @@ export class AppComponent implements OnInit {
 
   tasks$: Observable<Task[]>;
 
-  constructor(@Inject('TaskService') private taskService: TaskService) { }
+  constructor(@Inject(TASK_SERVICE_TOKEN) private taskService: TaskService) { }
 
   ngOnInit(): void {
-    this.tasks$ = this.taskService.getAll();
+    this.refreshTasks();
   }
 
   created(): void {
-    this.tasks$ = this.taskService.getAll();
+    this.refreshTasks();
   }
 
   deleted(): void {
+    this.refreshTasks();
+  }
+
+  private refreshTasks(): void {
     this.tasks$ = this.taskService.getAll();
   }
 }

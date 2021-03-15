@@ -7,12 +7,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { BASE_URL } from './app.tokens';
-import { DefaultTaskService } from './tasks/default-task.service';
-import { LocalTaskService } from './tasks/local-task.service';
 import { TasksModule } from './tasks/tasks.module';
+import { TaskServiceProvider } from 'app/task-service.provider';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +26,7 @@ import { TasksModule } from './tasks/tasks.module';
   ],
   providers: [
     {provide: BASE_URL, useValue: 'http://localhost:8080'},
-    {provide: 'TaskService', useClass: (environment.useLocalStorage) ? LocalTaskService : DefaultTaskService}
+    TaskServiceProvider
   ],
   bootstrap: [AppComponent]
 })

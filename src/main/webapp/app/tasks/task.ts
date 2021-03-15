@@ -2,6 +2,6 @@
  * A tiny task.
  */
 export interface Task {
-  id: string;
+  id?: string;
   name: string;
 }
