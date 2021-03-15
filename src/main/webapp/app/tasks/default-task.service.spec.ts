@@ -38,6 +38,18 @@ describe('DefaultTaskService', () => {
     req.flush({});
   });
 
+  it('should delete task', () => {
+    // when
+    taskService.delete('id123').subscribe();
+
+    // then
+    const req = httpTestingController.expectOne(request => request.url === 'http://backend.tld/tasks/id123');
+    expect(req.request.method).toEqual('DELETE');
+
+    // finally
+    req.flush({});
+  });
+
   it('should get all tasks', () => {
     // when
     taskService.getAll().subscribe();
@@ -50,13 +62,13 @@ describe('DefaultTaskService', () => {
     req.flush({});
   });
 
-  it('should delete task', () => {
+  it('should get tasks by query', () => {
     // when
-    taskService.delete('id123').subscribe();
+    taskService.getByQuery('task1').subscribe();
 
     // then
-    const req = httpTestingController.expectOne(request => request.url === 'http://backend.tld/tasks/id123');
-    expect(req.request.method).toEqual('DELETE');
+    const req = httpTestingController.expectOne(request => request.url === 'http://backend.tld/tasks?q=task1');
+    expect(req.request.method).toEqual('GET');
 
     // finally
     req.flush({});
