@@ -29,6 +29,10 @@ export class AppComponent implements OnInit {
     this.refreshTasks();
   }
 
+  searchByQuery(query: string): void {
+    this.tasks$ = this.taskService.searchByQuery(query);
+  }
+
   private refreshTasks(): void {
     this.tasks$ = this.taskService.getAll();
   }

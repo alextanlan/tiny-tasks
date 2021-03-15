@@ -5,6 +5,7 @@
         <img src="assets/images/logos/coyo/logo-coyo-inversed-nav-hd.png" alt="COYO">
       </div>
       <tiny-task-form (created)="created($event)"></tiny-task-form>
+      <tiny-search-tasks (emitted)="searchByQuery($event)"></tiny-search-tasks>
     </div>
   </mat-toolbar>
   <section class="content">
