@@ -3,6 +3,7 @@ import { of } from 'rxjs';
 
 import { TaskService } from '../task.service';
 import { TaskFormComponent } from './task-form.component';
+import { TASK_SERVICE_TOKEN } from 'app/app.tokens';
 
 describe('TaskFormComponent', () => {
   let component: TaskFormComponent;
@@ -14,7 +15,7 @@ describe('TaskFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TaskFormComponent],
       providers: [{
-        provide: 'TaskService',
+        provide: TASK_SERVICE_TOKEN,
         useValue: taskService
       }]
     }).overrideTemplate(TaskFormComponent, '')
