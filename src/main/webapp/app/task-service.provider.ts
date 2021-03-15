@@ -8,4 +8,4 @@ import { TASK_SERVICE_TOKEN } from 'app/app.tokens';
 export const TaskServiceProvider: ClassProvider = {
   provide: TASK_SERVICE_TOKEN,
   useClass: environment.useLocalStorage ? LocalTaskService : DefaultTaskService
-}
+};

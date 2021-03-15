@@ -8,8 +8,8 @@ describe('LocalTaskService', () => {
   const name = 'Doing the do!';
   const mockTask = `{"id":"${id}","name":"${name}"}`;
   const mockTasks = [
-    {id: 'id1', name:'Task1'},
-    {id: 'id2', name:'Task2'}
+    {id: 'id1', name: 'Task1'},
+    {id: 'id2', name: 'Task2'}
   ];
   let taskService: LocalTaskService;
   let getItemSpy: jasmine.Spy;
@@ -38,7 +38,7 @@ describe('LocalTaskService', () => {
       expect(taskList.length).toBe(1);
       expect(taskList[0].name).toEqual(name);
     });
-  })
+  });
 
   it('should return filtered tasks from local storage', () => {
     // when

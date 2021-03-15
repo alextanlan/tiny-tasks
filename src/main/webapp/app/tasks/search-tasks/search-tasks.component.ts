@@ -13,7 +13,7 @@ export class SearchTasksComponent implements OnInit {
   @Input() set reset$(reset$: Subject<void>) {
     reset$.subscribe(_ => {
       this.resetSearch();
-    })
+    });
   }
 
   @Output() emitted = new EventEmitter<string>();
@@ -29,7 +29,7 @@ export class SearchTasksComponent implements OnInit {
     ).subscribe();
   }
 
-  resetSearch() {
+  resetSearch(): void {
     this.searchControl.reset();
   }
 }
