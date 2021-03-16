@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 import { EMPTY, of, Subject } from 'rxjs';
 
 import { SearchTasksComponent } from './search-tasks.component';
@@ -74,5 +74,12 @@ describe('SearchTasksComponent', () => {
     externalReset.next();
 
     expect(resetSpy).toHaveBeenCalled();
+  });
+
+  it('should use query from url', () => {
+    ActivatedRouteMock.queryParams = of({q: 'Task1'});
+    component.ngOnInit();
+
+    expect(component.searchControl.value).toEqual('Task1');
   });
 });
