@@ -67,6 +67,20 @@ describe('LocalTaskService', () => {
     });
   });
 
+  it('should return filtered (by logical operator AND) tasks from local storage', () => {
+    // when
+    getItemSpy.and.callFake(() => JSON.stringify(mockTasks));
+    const query = 'T AND s AND 1';
+    const taskList$: Observable<Task[]> = taskService.getByQuery(query);
+
+    // then
+    expect(localStorage.getItem).toHaveBeenCalled();
+    taskList$.subscribe(taskList => {
+      expect(taskList.length).toBe(1);
+      expect(taskList[0].name).toEqual('Task1');
+    });
+  });
+
   it('should write task to local storage', () => {
     // when
     taskService.create('Drinking the drink!');
