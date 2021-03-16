@@ -6,11 +6,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { BASE_URL } from './app.tokens';
 import { TasksModule } from './tasks/tasks.module';
 import { TaskServiceProvider } from 'app/task-service.provider';
+
+const appRoutes: Routes = [
+  { path: '', component: AppComponent}
+];
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +27,8 @@ import { TaskServiceProvider } from 'app/task-service.provider';
     MatIconModule,
     MatToolbarModule,
     TasksModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     {provide: BASE_URL, useValue: 'http://localhost:8080'},
