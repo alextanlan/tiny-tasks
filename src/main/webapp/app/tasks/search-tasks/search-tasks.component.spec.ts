@@ -1,17 +1,22 @@
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Subject } from 'rxjs';
+import { ActivatedRoute } from "@angular/router";
+import { EMPTY, of, Subject } from 'rxjs';
 
 import { SearchTasksComponent } from './search-tasks.component';
 
 describe('SearchTasksComponent', () => {
   let component: SearchTasksComponent;
   let fixture: ComponentFixture<SearchTasksComponent>;
+  let ActivatedRouteMock: ActivatedRoute;
 
   beforeEach(async () => {
+    ActivatedRouteMock = jasmine.createSpyObj('ActivatedRoute', ['queryParams']);
+    ActivatedRouteMock.queryParams = of(EMPTY);
+
     await TestBed.configureTestingModule({
       declarations: [ SearchTasksComponent ],
       imports: [
@@ -19,6 +24,9 @@ describe('SearchTasksComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         BrowserAnimationsModule
+      ],
+      providers: [
+        { provide: ActivatedRoute, useValue: ActivatedRouteMock}
       ]
     }).compileComponents();
   });
