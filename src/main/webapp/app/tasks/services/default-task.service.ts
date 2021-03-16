@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { BASE_URL } from '../app.tokens';
-import { Task } from './task';
-import { TaskService } from './task.service';
+import { BASE_URL } from '../../app.tokens';
+import { Task } from '../task';
+import { TaskService } from '../task.service';
 
 @Injectable()
 export class DefaultTaskService implements TaskService {
@@ -22,5 +22,10 @@ export class DefaultTaskService implements TaskService {
 
   getAll(): Observable<Task[]> {
     return this.http.get<Task[]>(this.baseUrl + '/tasks');
+  }
+
+  getByQuery(query: string): Observable<Task[]> {
+    // Assuming it's implemented on BE-side
+    return this.http.get<Task[]>(`${this.baseUrl}/tasks?q=${query}`);
   }
 }

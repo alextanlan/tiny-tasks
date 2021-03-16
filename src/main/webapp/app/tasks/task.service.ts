@@ -15,6 +15,14 @@ export interface TaskService {
   getAll(): Observable<Task[]>;
 
   /**
+   * Returns the list of tasks filtered by the query.
+   *
+   * @param query the query to search
+   * @returns an `Observable` holding the list of found tasks
+   */
+  getByQuery(query: string): Observable<Task[]>;
+
+  /**
    * Adds a new task to the list of tasks.
    *
    * @param name the task's name

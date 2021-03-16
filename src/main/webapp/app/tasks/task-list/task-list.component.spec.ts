@@ -3,6 +3,7 @@ import { of } from 'rxjs';
 
 import { TaskService } from '../task.service';
 import { TaskListComponent } from './task-list.component';
+import { TASK_SERVICE_TOKEN } from 'app/app.tokens';
 
 describe('TaskListComponent', () => {
   let component: TaskListComponent;
@@ -14,7 +15,7 @@ describe('TaskListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TaskListComponent],
       providers: [{
-        provide: 'TaskService',
+        provide: TASK_SERVICE_TOKEN,
         useValue: taskService
       }]
     }).overrideTemplate(TaskListComponent, '')
